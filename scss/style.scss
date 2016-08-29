@@ -1,0 +1,96 @@
+$active_color : #A80000;
+$href_color : #191646;
+$header_bg_color: #DDFFA8;
+$alt_bg_color: #F9F9F9;
+$title_color: #B0E360;
+
+%spacing {
+  padding: 15px;
+}
+%border {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+%font {
+  font-family: calibri;
+}
+
+th, td {
+  @extend %spacing;
+  @extend %border;
+  @extend %font;
+  text-align: center;
+  
+}
+
+
+table {
+  margin-top: 100px;
+  @extend %border;
+   table-layout: fixed;
+   width: 80%;
+   margin: auto;
+}
+
+img {
+  width: 60px;
+  height: 60px;
+    @extend %border;
+  margin: auto;
+  display: block;
+}
+/* Set width for table columns.
+Scores are either inactive or active, 
+so width will also be set here. Rank & Avatar
+are both under .rank.*/
+
+.active {
+  color: $active_color;
+  width: 15%;
+
+}
+.inactive {
+  width: 15%;
+}
+.inactive:hover {
+  color: $active_color;
+  cursor: pointer;
+}
+
+.username {
+  width: 35%;
+ 
+}
+
+.rank {
+  width: 15%;
+  
+}
+
+.numbers {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+h1 {
+  @extend %font;
+  text-align: center;
+  
+  color: $title_color;
+}
+
+th {
+  background-color: $header_bg_color;
+    }
+th:nth-child(n+4) {
+    text-decoration: underline;
+}
+
+
+tr:nth-child(even) {
+  background-color: $alt_bg_color;
+}
+
+a {
+  color: $href_color
+}

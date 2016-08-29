@@ -1,0 +1,82 @@
+th, td {
+  padding: 15px;
+}
+
+th, td, table, img {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td, h1 {
+  font-family: calibri;
+}
+
+th, td {
+  text-align: center;
+}
+
+table {
+  margin-top: 100px;
+  table-layout: fixed;
+  width: 80%;
+  margin: auto;
+}
+
+img {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  display: block;
+}
+
+/* Set width for table columns.
+Scores are either inactive or active, 
+so width will also be set here. Rank & Avatar
+are both under .rank.*/
+.active {
+  color: #A80000;
+  width: 15%;
+}
+
+.inactive {
+  width: 15%;
+}
+
+.inactive:hover {
+  color: #A80000;
+  cursor: pointer;
+}
+
+.username {
+  width: 35%;
+}
+
+.rank {
+  width: 15%;
+}
+
+.numbers {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #B0E360;
+}
+
+th {
+  background-color: #DDFFA8;
+}
+
+th:nth-child(n+4) {
+  text-decoration: underline;
+}
+
+tr:nth-child(even) {
+  background-color: #F9F9F9;
+}
+
+a {
+  color: #191646;
+}

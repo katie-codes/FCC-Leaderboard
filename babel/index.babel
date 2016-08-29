@@ -1,0 +1,122 @@
+var MainContainer = new React.createClass({
+  getInitialState: function () {
+    return {
+          data: [],
+          recent: "recent_active",
+          alltime: false
+          
+    };
+  },
+  componentDidMount: function () {
+    // get RECENT api
+     $.ajax({
+      url: "https://fcctop100.herokuapp.com/api/fccusers/top/recent",
+      data: {
+        format: 'json'
+      },
+      cache: false,
+      success: function(data) {
+        this.setState({data: data, recent: "recent_active"});
+    //  console.log(this.state.data);
+      }.bind(this),
+       error: function () {
+       console.error("ajax failed");
+       },
+    });
+  },
+
+  handleClick: function (ref, event) {
+    this.switchResults(ref, event);
+  },
+  
+  switchResults: function (ref, event) {
+    // boolean check of state to see if recent is being displayed. 
+    // if false, change url of ajax request to grab alltime scores
+    // update state with new json in data to rerender UI
+    var url = "";
+   if (ref === "recent_active") {
+     url = "https://fcctop100.herokuapp.com/api/fccusers/top/alltime";
+   }
+  else if (ref === "alltime_active") {
+    url = "https://fcctop100.herokuapp.com/api/fccusers/top/recent"
+  }
+     $.ajax({
+      url: url,
+      data: {
+        format: 'json'
+      },
+      cache: false,
+      success: function(data) {
+        this.setState({data: data, recent: ref === "recent_active" ? 
+"alltime_active" : "recent_active"});
+      }.bind(this),
+       error: function () {
+       console.error("ajax failed");
+       },
+    });
+    
+  },
+
+  render: function () {
+   // console.log(this.state.data);
+    return (
+      <TableComponent onClick={this.handleClick} data={this.state.data} recent={this.state.recent} />
+    )
+    
+  }
+})
+
+
+var TableComponent = new React.createClass({
+  render: function () {
+
+    return (
+      
+      <div id="frame">
+        <div class="title">
+        <h1>Free Code Camp Leaderboard</h1>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th className="rank">Rank</th>
+              <th className="rank">Picture</th>
+              <th className="username">Username</th>
+              <th onClick={this.props.onClick.bind(this, "alltime_active")} ref="recent_active" className={this.props.recent === "recent_active" ? "active" : "inactive"}>Scores Last 30 Days</th>
+              <th onClick={this.props.onClick.bind(this, "recent_active")} ref="alltime_active" className={this.props.recent === "alltime_active" ? "active" : "inactive"}>Scores All Time</th>
+            </tr>
+          </thead>
+            <UserData data={this.props.data} recent={this.props.recent}/>
+        </table>
+        
+      </div>
+    )
+  }
+})
+
+var UserData = new React.createClass({
+  render: function () {
+    var retrieve_users = this.props.data.map((user, index) => {
+      //console.log(user.username);
+      var link = "https://www.freecodecamp.com/" + user.username;
+      return (
+          <tr>
+            <td className="numbers">{index+1}</td>
+            <td><img src={user.img} /></td>
+          <td><a href={link} target="_blank">{user.username}</a></td>
+            <td className={this.props.recent === "recent_active" ? "active" : ""}>{user.recent} </td>
+            <td className={this.props.recent === "alltime_active" ? "active" : ""}>{user.alltime} </td>
+          </tr>
+        )
+});
+    return (
+         <tbody>
+        {retrieve_users}
+        </tbody>
+    )
+  }
+})
+
+
+
+ReactDOM.render(<MainContainer />, document.getElementById("container"));
