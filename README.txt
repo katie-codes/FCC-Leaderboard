@@ -1,3 +1,6 @@
-A Pen created at CodePen.io. You can find this one at http://codepen.io/katie-codes/pen/vKoEAJ.
+My second project using React and SCSS. 
 
+Shows the Free Code Camp members with the highest scores. 
+
+See live on codepen: http://codepen.io/katie-codes/full/vKoEAJ/
  
